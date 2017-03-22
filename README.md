@@ -1,2 +1,2 @@
 # smashinator
-A fun chrome extension to install on a friends computer when they're not looking
+A chrome extension that replaces all images on a website with pictures of the band Smash Mouth and Shrek.
