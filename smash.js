@@ -1,7 +1,3 @@
-function main() {
-  replaceAllImages();
-}
-
 function replaceAllImages(){
   var replacementImages = [
     'http://arttecusa.com/wp-content/uploads/2012/03/smash-mouth-quote.jpg',
@@ -18,6 +14,7 @@ function replaceAllImages(){
     'http://assets2.ignimgs.com/2015/08/06/shrek-1280jpg-73e7ea_1280w.jpg',
     'http://img.usmagazine.com/480-width/smash-mouth-article.jpg'
   ];
+
   $.each($('img'), function(idx, item) {
     var h = $(item).height();
     var w = $(item).width();
@@ -36,13 +33,22 @@ function replaceAllImages(){
   }, 3000);
 
   function replaceImage(item, w, h) {
+    $(item).on('error',
+      function() {
+        handleBrokenImage(item, w, h);
+    });
     $(item).css('width', w + 'px');
     $(item).css('height', h + 'px');
     $(item).attr('src', replacementImages[Math.floor(Math.random() * replacementImages.length)]);
   }
+
+  function handleBrokenImage(item, w, h) {
+      var idx = replacementImages.indexOf($(item).attr('src'));
+      replacementImages.splice(idx, 1);
+      replaceImage(item, w, h);
+  }
 }
 
-
 $(function() {
-  main();
+  replaceAllImages();
 });
